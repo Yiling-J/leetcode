@@ -40,7 +40,7 @@ def get_same_distance(left, right):
     print(left)
     print(right)
 
-get_same_distance(left, right)
+# get_same_distance(left, right)
 
 l1 = [randint(0, 50) for i in range(randint(2, 20))]
 l2 = [randint(0, 50) for i in range(randint(2, 20))]

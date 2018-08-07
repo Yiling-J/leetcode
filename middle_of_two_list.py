@@ -62,8 +62,8 @@ l1 = [randint(0, 50) for i in range(randint(2, 20))]
 l2 = [randint(0, 50) for i in range(randint(2, 20))]
 
 # fix length test
-l1 = [randint(0, 50) for i in range(2)]
-l2 = [randint(0, 50) for i in range(15)]
+# l1 = [randint(0, 50) for i in range(2)]
+# l2 = [randint(0, 50) for i in range(15)]
 
 # error
 # l1 = [2, 8]
@@ -91,7 +91,7 @@ l = len(all)
 if l % 2: 
         t = all[l/2]
 else:
-        t = all[l/2-1], all[l/2]
+        t = [all[l/2-1], all[l/2]]
 print(t)
 print(r == t)
 

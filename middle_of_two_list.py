@@ -4,6 +4,7 @@ from random import randint
 def get_middle(l1, l2):
     len1 = len(l1)
     len2 = len(l2)
+    need = 2 - (len(l1) + len(l2)) % 2
     mid1 = l1[len1 / 2] if len1 % 2 == 1 else (l1[len1 / 2 - 1] + l1[len1 / 2]) / 2.0
     mid2 = l2[len2 / 2] if len2 % 2 == 1 else (l2[len2 / 2 - 1] + l2[len2 / 2]) / 2.0
     if mid1 > mid2:
@@ -14,10 +15,12 @@ def get_middle(l1, l2):
         right = l2[:len(l2) / 2 + 1]
     else:
         return mid1
-    return get_same_distance(left, right)
+    return get_same_distance(left, right, need)
 
 
-def get_same_distance(left, right):
+def get_same_distance(left, right, need):
+    lc = len(left)
+    rc = len(right)
     while len(left) > 2 or len(right) > 2:
         print(left)
         print(right)
@@ -39,6 +42,16 @@ def get_same_distance(left, right):
     print('---F---')
     print(left)
     print(right)
+    if len(left) == len(right) == 2:
+        all = left + right
+        all.sort()
+        if need == 1:
+            if lc % 2:
+                return all[2]
+            else:
+                return all[1]
+        else:
+            return all[1:3]
 
 # get_same_distance(left, right)
 
@@ -65,6 +78,8 @@ print('')
 
 
 r = get_middle(l1, l2)
+print('===Guess===')
+print(r)
 print('===Merged===')
 all = l1 + l2
 all.sort()

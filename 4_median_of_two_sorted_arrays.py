@@ -1,10 +1,10 @@
 from random import randint
 
 
-# TODO: Add doc
+# TODO: Add doc, fix variable name
 # TODO: Improve algorithm and remove if conditions
 class Solution(object):
-    def get_middle(self, l1, l2):
+    def get_median(self, l1, l2):
         len1 = len(l1)
         len2 = len(l2)
         r = False
@@ -25,9 +25,9 @@ class Solution(object):
             q = 1 if len1 % 2 else 2
         else:
             return mid1
-        return self.get_same_distance(left, right, need, q, r)
+        return self.cut_list(left, right, need, q, r)
 
-    def get_same_distance(self, left, right, need, q, r):
+    def cut_list(self, left, right, need, q, r):
         while len(left) > 2 or len(right) > 2 or len(left) == 1 or len(right) == 1:
             if len(left) == 1:
                 # need 2, reutn bigger 2 of left one and right last two
@@ -93,7 +93,7 @@ class Solution(object):
             return self.middle_of_list(nums1 or nums2)
         if len(nums1) == len(nums2) == 1:
             return (nums1[0] + nums2[0]) / 2.0
-        return self.get_middle(nums1, nums2)
+        return self.get_median(nums1, nums2)
 
 
 def test():
@@ -133,4 +133,4 @@ for i in range(5000):
     print(i)
     result = test()
     if not result:
-        raise Exception('===Unmatch!===')
+        raise Exception('===!!!===')

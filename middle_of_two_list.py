@@ -27,9 +27,21 @@ def get_same_distance(left, right, need, q):
         print(left)
         print(right)
         if len(left) == 1:
-            return right[-1]
+            # need 2, reutn bigger 2 of left one and right last two
+            if need == 1:
+                return right[-1]
+            else:
+                all = [left[0], right[-1], right[-2]]
+                all.sort()
+                return all[1:]
         if len(right) == 1:
-            return left[0]
+            # need 2, return smaller 2 of right and left first two
+            if need == 1:
+                return left[0]
+            else:
+                all = [right[0], left[0], left[1]]
+                all.sort()
+                return all[:2]
         l_length = len(left)
         r_length = len(right)
         n = min(l_length, r_length) / 2
@@ -38,7 +50,7 @@ def get_same_distance(left, right, need, q):
         if l_value == r_value:
             print('---F---')
             print(l_value)
-            return l_value
+            return l_value if need == 1 else [l_value, l_value]
         if l_value > r_value:
             left = left[:n + 1]
             right = right[-n - 1:]
@@ -56,79 +68,47 @@ def get_same_distance(left, right, need, q):
         else:
             return all[1:3]
 
-# get_same_distance(left, right)
 
-l1 = [randint(0, 50) for i in range(randint(2, 20))]
-l2 = [randint(0, 50) for i in range(randint(2, 20))]
+def test():
+    l1 = [randint(0, 50) for i in range(randint(2, 20))]
+    l2 = [randint(0, 50) for i in range(randint(2, 20))]
 
-# fix length test
-# l1 = [randint(0, 50) for i in range(2)]
-# l2 = [randint(0, 50) for i in range(15)]
+    # fix length test
+    l1 = [randint(0, 50) for i in range(3)]
+    l2 = [randint(0, 50) for i in range(8)]
 
-# error
-# l1 = [2, 8]
-# l2 = [4, 6, 15, 17, 22, 29, 33, 42, 42, 49]
+    # error
+    # l1 = [2, 8]
+    # l2 = [4, 6, 15, 17, 22, 29, 33, 42, 42, 49]
 
-l1.sort()
-l2.sort()
-print('===Origin===')
-print(l1)
-print(len(l1))
-print('')
-print(l2)
-print(len(l2))
-print('')
+    l1.sort()
+    l2.sort()
+    print('===Origin===')
+    print(l1)
+    print(len(l1))
+    print('')
+    print(l2)
+    print(len(l2))
+    print('')
 
 
-r = get_middle(l1, l2)
-print('===Guess===')
-print(r)
-print('===Merged===')
-all = l1 + l2
-all.sort()
-print(all)
-l = len(all)
-if l % 2: 
+    r = get_middle(l1, l2)
+    print('===Guess===')
+    print(r)
+    print('===Merged===')
+    all = l1 + l2
+    all.sort()
+    print(all)
+    l = len(all)
+    if l % 2: 
         t = all[l/2]
-else:
+    else:
         t = [all[l/2-1], all[l/2]]
-print(t)
-print(r == t)
+    print(t)
+    return r == t
 
-
-"""
-Case1:
-===Origin===
-[1, 2, 3, 9, 13, 14, 21, 21, 27, 30, 39]
-[3, 5, 12, 16, 16, 22, 24, 28, 31, 33, 34, 38, 47, 48]
-
-[14, 21, 21, 27, 30, 39]
-[3, 5, 12, 16, 16, 22, 24, 28]
-[14, 21, 21, 27]
-[16, 22, 24, 28]
----F---
-[-21-, 27]
-[16, 22]
-===Merged===
-[1, 2, 3, 3, 5, 9, 12, 13, 14, 16, 16, 21, -21-, 22, 24, 27, 28, 30, 31, 33, 34, 38, 39, 47, 48]
-
-Case2:
-===Origin===
-[3, 6, 8, 20, 22, 22, 23, 23, 29, 34, 36, 40]
-[14, 14, 17, 19, 21, 27, 28, 29, 37, 43, 44]
-
-[22, 23, 23, 29, 34, 36, 40]
-[14, 14, 17, 19, 21, 27]
-[22, 23, 23, 29]
-[17, 19, 21, 27]
-[22, 23, 23]
-[19, 21, 27]
----F---
-[22, -23-]
-[21, 27]
-===Merged===
-[3, 6, 8, 14, 14, 17, 19, 20, 21, 22, 22, -23-, 23, 27, 28, 29, 29, 34, 36, 37, 40, 43, 44]
-
-GUESS:
-When need 1 number, for two original lists, if even one left, geet bigger of middle two, else, smaller of middle two
-"""
+for i in range(1000):
+    print(i)
+    result = test()
+    if not result:
+        break

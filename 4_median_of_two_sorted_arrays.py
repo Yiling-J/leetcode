@@ -1,6 +1,21 @@
 from random import randint
 
 
+"""
+Algorithm:
+Given two list L1 and L2, length l1 and l2, median of L1 is L1m, median of L2 is L2m.
+Now let's find a number between L1m and L2m, this number Lm, should meet the condition:
+length(L1m to Lm) == length(Lm to L2m) here we assume L1m < L2m,
+simple graph("[]" is number, "-- --" is count of number):
+
+-- (l1)/2 -- [L1m] --n-- [Lm]
+                         [Lm] -- n -- [L2m] -- (l2)/2 --
+
+Easy to know, length(numbers < Lm) = (l1)/2 + n + (l2 - n - (l2)/2) = (l1 + l2)/2,
+so Lm is the median we need to find.
+"""
+
+
 # TODO: Add doc, fix variable name
 # TODO: Improve algorithm and remove if conditions
 class Solution(object):

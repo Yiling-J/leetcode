@@ -21,10 +21,13 @@ We first find a number nx, compare L1x and L2x:
 If L1x < L2x, we keep search remaining part, else, we search on the opposite part.
 Note that nx is not a fixed number, we always use half size of the smaller part.
 Keep doing this until we find the number Lm.
+
+Code below is working now, but still have many if conditions. Can be refined future.
+
 """
 
 
-# TODO: Add doc, fix variable name
+# TODO: Add detail doc, fix variable name
 # TODO: Improve algorithm and remove if conditions
 class Solution(object):
 

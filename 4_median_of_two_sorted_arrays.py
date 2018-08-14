@@ -16,8 +16,10 @@ so Lm is the median we need to find.
 
 Next step, how to find Lm logarithmically? Binary search.
 We first find a number nx, compare L1x and L2x:
+
 [L1m] --nx-- [L1x]
                    [L2x] -- nx -- [L2m]
+
 If L1x < L2x, we keep search remaining part, else, we search on the opposite part.
 Note that nx is not a fixed number, we always use half size of the smaller part.
 Keep doing this until we find the number Lm.

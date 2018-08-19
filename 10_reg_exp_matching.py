@@ -1,3 +1,13 @@
+"""
+A simplified NFA solution after reading
+Introduction to the theory of computation - Michael Sipser
+Chapter 1,
+Also add a false set to remember failures,
+make it faster enough to pass leetcode test.
+
+"""
+
+
 class Solution(object):
 
     def match(self, sn, pn):

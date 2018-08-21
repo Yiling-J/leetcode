@@ -14,37 +14,20 @@ class Solution(object):
         :rtype: ListNode
         """
         self.k = k
-        self.processed = None
-        self.start = None
-        self.new = head
         self.reverse(head, k=self.k)
-        return self.new
+        return self.f
 
     def reverse(self, node, pointer=None, k=None):
-        new = ListNode(node.val)
-        new.next = node.next
-        if not pointer:
-            if self.processed:
-                self.processed.next = node
-            self.start = new
+        print(k)
 
-        next = new.next
-        new.next = pointer
-        pointer = new
-        k -= 1
-        if k == 0:
-            if self.processed:
-                self.processed.next = new
-            else:
-                self.new = new
-            self.processed = self.start
-            return self.reverse(next, k=self.k) if next else None
+        if not node.next:
+            node.next = pointer
+            self.f = node
+            return True
 
-        if next is None:
-            return new
-
-        else:
-            return self.reverse(next, pointer, k)
+        if self.reverse(node.next, node, k):
+            node.next = pointer
+            return True
 
 
 l = s = ListNode(1)
@@ -53,10 +36,8 @@ for i in [2, 3, 4, 5]:
     l = l.next
 
 so = Solution()
-processed = so.reverseKGroup(s, 3)
+processed = so.reverseKGroup(s, 2)
 print('==========================')
-print(processed)
 while processed:
     print(processed.val)
     processed = processed.next
-print('++++++++')

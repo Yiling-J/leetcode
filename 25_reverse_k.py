@@ -44,6 +44,8 @@ class Solution(object):
             return node
 
         k -= 1
+
+        # lazy evaluation, reverse until need reverse
         if self.reverse(node.next, node, k):
             node.next = pointer
             self.tail = node

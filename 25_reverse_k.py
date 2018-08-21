@@ -5,7 +5,7 @@ class ListNode(object):
         self.next = None
 
 
-# FIXME: Slow, lazy evaluate to speed up
+# TODO: make it simple
 class Solution(object):
     def reverseKGroup(self, head, k):
         """
@@ -13,21 +13,48 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
+        if not head or k == 1:
+            return head
         self.k = k
+        self.final = None
+
+        # new head, new tail and next node after tail
+        self.head = self.tail = self.next = None
+
         self.reverse(head, k=self.k)
-        return self.f
+        return self.final or head
 
     def reverse(self, node, pointer=None, k=None):
-        print(k)
+
+        if k == 0:
+            self.next = node
+            if not self.final:
+                self.final = pointer
+            self.head = pointer
+            return True
 
         if not node.next:
+            if k != 1:
+                return False
             node.next = pointer
-            self.f = node
-            return True
+            self.head = node
+            self.next = None
+            if not self.final:
+                self.final = node
+            return node
 
+        k -= 1
         if self.reverse(node.next, node, k):
             node.next = pointer
-            return True
+            self.tail = node
+            if not pointer and self.next:
+                next = self.next
+                head = self.head
+                r = self.reverse(next, k=self.k) or next
+                if r:
+                    node.next = r
+                return head
+            return self.head
 
 
 l = s = ListNode(1)

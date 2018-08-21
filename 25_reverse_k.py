@@ -5,6 +5,7 @@ class ListNode(object):
         self.next = None
 
 
+# FIXME: Slow, lazy evaluate to speed up
 class Solution(object):
     def reverseKGroup(self, head, k):
         """
@@ -12,39 +13,50 @@ class Solution(object):
         :type k: int
         :rtype: ListNode
         """
-        pass
+        self.k = k
+        self.processed = None
+        self.start = None
+        self.new = head
+        self.reverse(head, k=self.k)
+        return self.new
 
+    def reverse(self, node, pointer=None, k=None):
+        new = ListNode(node.val)
+        new.next = node.next
+        if not pointer:
+            if self.processed:
+                self.processed.next = node
+            self.start = new
 
-processed = []
+        next = new.next
+        new.next = pointer
+        pointer = new
+        k -= 1
+        if k == 0:
+            if self.processed:
+                self.processed.next = new
+            else:
+                self.new = new
+            self.processed = self.start
+            return self.reverse(next, k=self.k) if next else None
 
+        if next is None:
+            return new
 
-def reverse(node, pointer=None, k=3):
-    print(node.val)
-    next = node.next
-    node.next = pointer
-    pointer = node
-    k -= 1
-    if k == 0:
-        processed.append(node)
-        return reverse(next) if next else None
-
-    if next is None:
-        return node
-
-    else:
-        return reverse(next, pointer, k)
+        else:
+            return self.reverse(next, pointer, k)
 
 
 l = s = ListNode(1)
-for i in [2, 6, 8, 9, 11, 12, 15, 17, 21, 22]:
+for i in [2, 3, 4, 5]:
     l.next = ListNode(i)
     l = l.next
 
-s = reverse(s, None, 3)
+so = Solution()
+processed = so.reverseKGroup(s, 3)
 print('==========================')
 print(processed)
-for s in processed:
-    while s:
-        print(s.val)
-        s = s.next
-    print('++++++++')
+while processed:
+    print(processed.val)
+    processed = processed.next
+print('++++++++')

@@ -1,4 +1,32 @@
-# TODO: Add doc
+"""
+if s is ()(()),
+Basic idea is, we extract each '(' from s,
+to a list p, also, add an index to another
+list ll. Each time we get a ')', pop one
+index from ll, asign that index value in
+p to 2.
+If we get ')' but ll is empty,
+add another 0 to p to break group,
+then increase index by 1.
+
+How it work:
+s      p              ll
+(      [0]            [0]
+)      [2]            []
+(      [2, 0]         [1]
+(      [2, 0, 0]      [1, 2]
+)      [2, 0, 2]      [1]
+)      [2, 2, 2]      []
+
+Finally in this list p, all continous none 0
+elements are a group, we can add them together.
+In this example, is 2+2+2=6.
+If p is [2, 2, 0, 2, 2, 2],
+then we have two group, and get the max one,
+max(2+2, 2+2+2)
+"""
+
+
 class Solution(object):
     def longestValidParentheses(self, s):
         """

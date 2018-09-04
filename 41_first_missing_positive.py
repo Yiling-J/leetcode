@@ -10,7 +10,7 @@ class Solution(object):
         :rtype: int
         """
         results = set()
-        for i in nums:
+        for i in set(nums):
             print(i)
             print(results)
             if i <= 0:

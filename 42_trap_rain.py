@@ -1,7 +1,20 @@
 """
-First solution, put all up to a queue,
-then using down to consume ups. A little
-slow, find a better way.
+Second solution, simple and faster.
+we can notice that at a given index 
+trapped number t is:
+t = min(ln_max, rn_max) - hn or 0
+ln_max: left max height
+rn_max: right max height
+hn: current height
+if c < 0, we use 0.
+So we can loop twice, first time,
+get left max value of each place,
+second time, get right max value
+and result.
+
+Notice: first I use min, max function
+in python, but slow. So I use if else
+instead.
 
 """
 
@@ -12,34 +25,22 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
-        prev = 0
-        q = []
-        c = 0
-        for i in range(len(height)):
-            h = height[i]
-            # print(h, prev)
-            if h < prev:
-                delta = prev - h
-                q.append([i, delta])
-            elif h > prev:
-                delta = h - prev
-                if not q:
-                    prev = h
-                    continue
-                while delta:
-                    if not q:
-                        break
-                    e = q[-1]
-                    if e[1] <= delta:
-                        delta -= e[1]
-                        c += (e[1] * (i - e[0]))
-                        q.pop()
-                    elif e[1] > delta:
-                        c += (delta * (i - e[0]))
-                        e[1] -= delta
-                        delta = 0
-            prev = h
-        return c
+        p = []
+        lmax = 0
+        rmax = 0
+        f = 0
+        for h in height:
+            p.append(lmax)
+            lmax = lmax if lmax > h else h
+        s = len(height) - 1
+        while s >= 0:
+            h = height[s]
+            q = p[s]
+            n = (q if q < rmax else rmax) - h
+            f += n if n > 0 else 0
+            rmax = h if h > rmax else rmax
+            s -= 1
+        return f
 
 
 s = Solution()

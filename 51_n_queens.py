@@ -49,17 +49,15 @@ class Solution(object):
         self.n = n
         self.final = []
         for i in range(n):
-            self.bb = [['.' for col in range(n)] for row in range(n)]
             self.count = n - 1
             s = set(range(n))
             s.remove(i)
-            self.bb[0][i] = 'Q'
             path = [i]
             q = self.solve(i, s, path)
         return self.final
 
 
 s = Solution()
-n = 6
+n = 8
 r = s.solveNQueens(n)
 print(r)

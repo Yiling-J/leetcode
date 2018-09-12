@@ -26,7 +26,7 @@ class Solution(object):
             c = len(path)
             res = False
             for p in path:
-                if abs(p-o) not in [0, c]:
+                if abs(p-o) != c:
                     c -= 1
                     res = True
                 else:

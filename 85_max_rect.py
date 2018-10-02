@@ -14,6 +14,9 @@ three '1' in three line. but current line only have four
 four '1' for 2 line, and three '1' for 4 line. And we can
 use a dict to keep this, {4: 2, 3: 4}
 
+After reading discuss, it's a good idea to reuse 84 to 
+solve this problem.
+
 
 """
 

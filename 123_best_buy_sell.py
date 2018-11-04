@@ -1,38 +1,56 @@
 """
-For each day i, we dynamiclly compute incomes ater that day j,
-delta = prices[j] - prices[i], and use a list d to save max income
-at that day. 
+O(n) version. On each day, we get the highest income before that day
+and also the highest income after that day, plus this two, to get the
+highest possible income of that day.
 
-For example, when we reach day 5, d[5] is 20, this means at this day,
-the highest income we get is 20. and for day 6, 7, 8..., we calculte
-delta + d[5], to get the max income of all days.
+So when looping through the prices. We count from left and right same
+time, left is income before that day, and right is income after that day,
+when finishing loop, we get incomes of every day.
 
 """
 
-# TODO: Find O(n) solution
+
+def minn(v1, v2):
+    return v1 if v1 < v2 else v2
+
+
+def maxx(v1, v2):
+    return v1 if v1 > v2 else v2
+
+
 class Solution(object):
     def maxProfit(self, prices):
         """
         :type prices: List[int]
         :rtype: int
         """
-        l = len(prices)
-        d = [0] * l
-        f = 0
-        for i in range(l):
-            if i == l-1:
-                break
-            if i < l-1 and prices[i + 1] <= prices[i]:
-                continue
-            maxx = 0
+        if not prices:
+            return 0
+        L = len(prices)
+        lv = [0] * L
+        rv = [0] * L
+        result = 0
+        l_min = prices[0]
+        r_max = prices[-1]
+        
+        for i in range(L):
+            l_price = prices[i]
+            r_price = prices[L-i-1]
             
-            for j in range(l)[i+1:]:
-                if prices[j] <= prices[j-1]:
-                    d[j] = maxx if maxx > d[j] else d[j]
-                    continue
-                delta = prices[j] - prices[i]
-                maxx = delta if delta > maxx else maxx
-                v = maxx if maxx > d[i] + delta else d[i] + delta
-                d[j] = maxx if maxx > d[j] else d[j]
-                f = f if f > v else v
-        return f
+            if i > 0 and l_price <= prices[i-1]:
+                lv[i] = lv[i-1]
+                l_min = minn(l_price, l_min)
+            else:
+                lv[i] = maxx(l_price - l_min, lv[i-1] if i > 0 else 0)
+                l_min = minn(l_price, l_min)
+            
+            if i > 0 and r_price >= prices[L-i]:
+                rv[L-i-1] = rv[L-i]
+                r_max = maxx(r_max, r_price)
+            else:
+                rv[L-i-1] = maxx(r_max - r_price, rv[L-i] if i > 0 else 0)
+                r_max = maxx(r_max, r_price)
+            if i >= L/2:
+                result = max(result, lv[i]+rv[i], rv[L-i-1]+lv[L-i-1])
+        return result
+            

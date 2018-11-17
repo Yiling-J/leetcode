@@ -1,10 +1,5 @@
 """
 
----
-! Submit failed due to leetcode bug (I think), wait reply.
-! This solution should be right and fast enough though, I guess.
----
-
 Because we need all shortest path, it's easy for us to figure out
 using BFS approach. But the tricky part is how to make this BFS fast
 enough.
